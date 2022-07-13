@@ -1,8 +1,16 @@
 package config
 
+import (
+	"reflect"
+)
+
 type Config interface {
-	get() Config
-	getProperty(name string)
+	GetProperty(key string) string
+}
+
+type DBConfig interface {
+	Config
+	GetOutput() string
 }
 
 type GormConfig struct {
@@ -13,13 +21,17 @@ type GormConfig struct {
 	Port string
 	SSLMode string
 	TimeZone string
+	Output string
 }
 
-func (c GormConfig) get() Config {
-	return nil
+func (c GormConfig) GetProperty(key string) string {
+	r := reflect.ValueOf(c)
+	v := r.FieldByName(key).Interface()
+	return v.(string)
 }
 
-func (c GormConfig) getProperty(name string) {
+func (c GormConfig) GetOutput() string {
+	return c.Output
 }
 
 // type LogConfig struct {

@@ -5,3 +5,4 @@ dbname: postgres
 port: 5432
 sslmode: disable
 timezone: Asia/Tokyo
+output: /var/log/es/gorm.log

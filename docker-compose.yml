@@ -9,6 +9,8 @@ services:
     volumes:
       - ./app:/go/src # mount directory
       - ./log:/var/log/es # log directory
+    environment:
+      TZ: Asia/Tokyo
   db:
     image: postgres:14.4-alpine
     ports:
