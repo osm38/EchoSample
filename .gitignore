@@ -1,2 +1,3 @@
 *code-workspace
 *.log
+*/node_modules/

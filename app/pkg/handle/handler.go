@@ -7,7 +7,12 @@ import (
 )
 
 func GetHelloWorld(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello World!")
+	u := &structs.User{
+		Name: "hoge",
+		Age: 20,
+	}
+	// return c.String(http.StatusOK, "Hello World!")
+	return c.JSON(http.StatusOK, u)
 }
 
 func GetUserID(c echo.Context) error {
@@ -20,5 +25,5 @@ func GetUser(c echo.Context) error {
 	if err := c.Bind(u); err != nil {
 		return err
 	}
-	return c.JSON(http.StatusCreated, u)
+	return c.JSON(http.StatusOK, u)
 }

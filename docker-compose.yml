@@ -2,12 +2,12 @@ version: "3"
 services: 
   app:
     build:
-      context: ./build/docker
+      context: ./build/docker/app
     tty: true
     ports:
       - 1323:1323
     volumes:
-      - ./app:/go/src # mount directory
+      - ./app:/go/src # working directory
       - ./log:/var/log/es # log directory
     environment:
       TZ: Asia/Tokyo
@@ -19,6 +19,16 @@ services:
       - data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
+  web:
+    build:
+      context: ./build/docker/web
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - ./web:/usr/src/web # working directory
+    environment:
+      TZ: Asia/Tokyo
 
 volumes:
   data:

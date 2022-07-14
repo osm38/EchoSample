@@ -22,6 +22,7 @@ func NewRouter() *echo.Echo {
 	e.GET("/hello", handle.GetHelloWorld)
 	e.GET("/users/:id", handle.GetUserID)
 	e.POST("/user", handle.GetUser)
+	e.File("/login", "web/template/login.html")
 
 	return e
 }

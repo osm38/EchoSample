@@ -2,11 +2,11 @@ package main
 
 import (
 	"echosample/pkg/route"
-	"echosample/pkg/db/repository"
+	// "echosample/pkg/db/repository"
 )
 
 func main(){
-	repository.FindUser()
+	// repository.FindUser()
 
 	// ルーティング設定
 	router := route.NewRouter()
