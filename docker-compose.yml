@@ -28,7 +28,8 @@ services:
     volumes:
       - ./web:/usr/src/web # working directory
     environment:
-      TZ: Asia/Tokyo
+      - WATCHPACK_POLLING=true # enable hot reload
+      - TZ=Asia/Tokyo
 
 volumes:
   data:
