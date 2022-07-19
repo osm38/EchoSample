@@ -1,6 +1,19 @@
 // import { Link } from "react-router-dom"
+import LoginButton from './LoginButton'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import LoginContext from './contexts/LoginContext'
 
-function Login() {
+const Login = () => {
+  const {isLogin, setLogin} = React.useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const doLogin = () => {
+      console.log(isLogin);
+      setLogin(!isLogin);
+      navigate("/dummy");
+  }
+
   return (
     <form className="w-[400px] px-2.5 py-10 absolute text-center top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bg-black">
       <div>
@@ -21,7 +34,8 @@ function Login() {
           placeholder="Input Your Password"
         />
       </div>
-      <button type="submit">Login</button>
+      {/* <button type="submit">Login</button> */}
+      <LoginButton callback={doLogin}/>
     </form>
   );
 }

@@ -1,21 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Login from "./Login";
 // import App from './App';
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dummy from "./Dummy";
+import Layout from "./Layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Login></Login>
-    <Router>
-      <Routes>
-        <Route path="/dummy" element={<Dummy value="arg" />}></Route>
-      </Routes>
-    </Router>
+    <Layout />
   </React.StrictMode>
 );
 
