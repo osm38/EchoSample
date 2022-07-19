@@ -4,6 +4,8 @@ go 1.18
 
 require (
 	github.com/go-logr/zerologr v1.2.2
+	github.com/gorilla/sessions v1.2.1
+	github.com/labstack/echo-contrib v0.12.0
 	github.com/labstack/echo/v4 v4.7.2
 	github.com/rs/zerolog v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
@@ -15,6 +17,8 @@ require (
 require (
 	github.com/go-logr/logr v1.2.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/gorilla/context v1.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect

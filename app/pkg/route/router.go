@@ -4,6 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"echosample/pkg/handle"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 )
 
 func NewRouter() *echo.Echo {
@@ -13,6 +15,8 @@ func NewRouter() *echo.Echo {
 	e.Use(middleware.Logger())
 	// panic（システム例外的なもの）が起こったときにサーバを落とさずにエラーレスポンスを返す。
 	e.Use(middleware.Recover())
+	// セッション管理
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
 
 	// 静的コンテンツフォルダの設定
 	e.Static("/assets", "web/assets")
@@ -23,6 +27,8 @@ func NewRouter() *echo.Echo {
 	e.GET("/users/:id", handle.GetUserID)
 	e.POST("/user", handle.GetUser)
 	e.File("/login", "web/template/login.html")
+	e.GET("/login", handle.DoLogin)
+	e.GET("/sample", handle.AjaxSample)
 
 	return e
 }

@@ -10,8 +10,8 @@ const Login = () => {
 
   const doLogin = () => {
       console.log(isLogin);
-      setLogin(!isLogin);
-      navigate("/dummy");
+      setLogin(true);
+      navigate("/home");
   }
 
   return (
