@@ -16,7 +16,7 @@ func NewRouter() *echo.Echo {
 	// panic（システム例外的なもの）が起こったときにサーバを落とさずにエラーレスポンスを返す。
 	e.Use(middleware.Recover())
 	// セッション管理
-	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("GoSampleSession"))))
 
 	// 静的コンテンツフォルダの設定
 	e.Static("/assets", "web/assets")
@@ -26,8 +26,7 @@ func NewRouter() *echo.Echo {
 	e.GET("/hello", handle.GetHelloWorld)
 	e.GET("/users/:id", handle.GetUserID)
 	e.POST("/user", handle.GetUser)
-	e.File("/login", "web/template/login.html")
-	e.GET("/login", handle.DoLogin)
+	e.POST("/login", handle.DoLogin)
 	e.GET("/sample", handle.AjaxSample)
 
 	return e

@@ -2,13 +2,11 @@ package repository
 
 import (
 	"echosample/pkg/db/model"
-	"echosample/pkg/management"
 	"fmt"
 )
 
 func FindUser() model.User {
 	user := model.User{}
-	db := management.GetDBManager().GetDB()
 	db.First(&user)
 	fmt.Println(user.ID)
 	fmt.Println(user.Name)
@@ -24,7 +22,6 @@ func FindUserByID(id int) model.User {
 	}
 	var users []model.User
 
-	db := management.GetDBManager().GetDB()
 	db.Where(&condition).Find(&users)
 	fmt.Println("result: ", len(users))
 
@@ -46,5 +43,22 @@ func FindUserByID(id int) model.User {
 	}
 
 	return users[0]
+}
 
+func FindUserByName(name string) model.User {
+	condition := model.User{
+		Name: name,
+		Deleted: false,
+	}
+
+	var user model.User
+
+	result := db.Where(&condition).First(&user)
+
+	if result.Error != nil {
+		logger.Error(result.Error, "FindUserByName is Fail!!", nil)
+		panic("FindUserByName is Fail!!")
+	}
+
+	return user
 }

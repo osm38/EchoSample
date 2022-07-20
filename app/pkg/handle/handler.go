@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"echosample/pkg/structs"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo-contrib/session"
-	"github.com/gorilla/sessions"
-	"fmt"
 	"echosample/pkg/db/repository"
+	"echosample/pkg/authenticate"
+	"echosample/pkg/session"
+	"fmt"
 )
 
 func GetHelloWorld(c echo.Context) error {
@@ -33,13 +33,18 @@ func GetUser(c echo.Context) error {
 }
 
 func DoLogin(c echo.Context) error {
-	sess, _ := session.Get("session", c)
-	sess.Options = &sessions.Options{
-		MaxAge: 1,
-		HttpOnly: false,
+	name := c.FormValue("name")
+	pw := c.FormValue("password")
+
+	isSuccess := authenticate.Login(name, pw)
+
+	if !isSuccess {
+		fmt.Println("login fail!")
+		return c.NoContent(http.StatusUnauthorized)
 	}
-	fmt.Println("DoLogin!!")
-	sess.Values["foo"] = "bar"
+	fmt.Println("login Success!!")
+
+	sess := session.GetSession(c)
 	sess.Save(c.Request(), c.Response())
 	return c.NoContent(http.StatusOK)
 }

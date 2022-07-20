@@ -23,7 +23,7 @@ const Login = () => {
         <input
           className="w-50 p-1 my-2"
           type="id"
-          name="user_id"
+          name="name"
           placeholder="Input Your ID"
         />
         <br />
