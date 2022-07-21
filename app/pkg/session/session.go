@@ -13,6 +13,10 @@ var (
 	logger = log.GetInstance("session")
 )
 
+func Auth(sessID string) error {
+	return nil
+}
+
 func GetSession(c echo.Context) *sessions.Session {
 	sess, err := session.Get("GoSampleSession", c)
 	if err != nil {

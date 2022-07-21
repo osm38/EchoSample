@@ -16,12 +16,8 @@ import (
 var logger = log.GetInstance("handler")
 
 func GetHelloWorld(c echo.Context) error {
-	u := &structs.User{
-		Name: "hoge",
-		Age: 20,
-	}
-	// return c.String(http.StatusOK, "Hello World!")
-	return c.JSON(http.StatusOK, u)
+	fmt.Println("GetHelloWorld execute!!")
+	return c.String(http.StatusOK, "Hello World!")
 }
 
 func GetUserID(c echo.Context) error {
@@ -60,5 +56,13 @@ func DoLogin(c echo.Context) error {
 func AjaxSample(c echo.Context) error {
 	user := repository.FindUserByID(1)
 	_ = user
+	return c.NoContent(http.StatusOK)
+}
+
+func PostRoot(c echo.Context) error {
+	fmt.Println("PostRoot Start!!")
+	req := c.Request()
+	url := req.URL.Path
+	fmt.Println("url: " + url)
 	return c.NoContent(http.StatusOK)
 }
