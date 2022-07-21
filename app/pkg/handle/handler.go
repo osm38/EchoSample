@@ -8,7 +8,12 @@ import (
 	"echosample/pkg/authenticate"
 	"echosample/pkg/session"
 	"fmt"
+	"echosample/pkg/bind"
+	ub "echosample/pkg/util/bind"
+	"echosample/pkg/log"
 )
+
+var logger = log.GetInstance("handler")
 
 func GetHelloWorld(c echo.Context) error {
 	u := &structs.User{
@@ -33,10 +38,13 @@ func GetUser(c echo.Context) error {
 }
 
 func DoLogin(c echo.Context) error {
-	name := c.FormValue("name")
-	pw := c.FormValue("password")
+	l := &bind.Login{}
+	if err := ub.Bind(c, nil); err != nil {
+		logger.Error(err, "DoLogin is Fail!!", nil)
+		return err
+	}
 
-	isSuccess := authenticate.Login(name, pw)
+	isSuccess := authenticate.Login(l.Name, l.Password)
 
 	if !isSuccess {
 		fmt.Println("login fail!")

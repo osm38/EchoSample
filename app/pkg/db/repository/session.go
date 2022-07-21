@@ -3,14 +3,12 @@ package repository
 import (
 	"echosample/pkg/db/model"
 	"time"
-	"fmt"
 )
 
 func RegisterSession(sessID string, userID int) {
 	u := createModel()
 	u.ID = sessID
 	u.UserID = userID
-	fmt.Printf("%#v", u)
 	result := db.Create(&u)
 	if result.Error != nil {
 		logger.Error(result.Error, "RegisterSession is Fail!!", nil)
