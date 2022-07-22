@@ -40,9 +40,14 @@ var DefaultSimpleAuthConfig = SimpleAuthConfig {
 
 func DefaultSimpleSkipper(c echo.Context) bool {
 	req := c.Request()
-	if url := req.URL.Path; url == "/" {
-		return true
+	if url := req.URL.Path; url == "/login" {
+	// url := req.URL.Path
+	// fmt.Printf("url=%s\n", url)
+	// if (url == "/login" || url == "/favicon.ico") {
+		fmt.Println("Is Skip")
+			return true
 	}
+	fmt.Println("No Skip")
 	return false
 }
 
@@ -63,29 +68,17 @@ func SimpleAuthWithConfig(config SimpleAuthConfig) echo.MiddlewareFunc {
 
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
+			fmt.Println("SimpleAuth execute!")
 			if config.Skipper(c) {
-				next(c)
+				return next(c)
 			}
-			cookie, err := c.Cookie("sessID")
+
+			err := session.Auth(c)
 			if err != nil {
-				logger.Error(err, "Cookie is None!!", nil)
+				logger.Error(err, "SimpleAuth Fail!!", nil)
 				return c.NoContent(http.StatusInternalServerError)
 			}
-			session.Auth(cookie.Value)
 			return next(c)
 		}
-	}
-}
-
-func Middleware(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		cookie, err := c.Cookie("sessID")
-		if err != nil {
-			logger.Error(err, "Cookie is None!!", nil)
-			return c.NoContent(http.StatusInternalServerError)
-		}
-		session.Auth(cookie.Value)
-		fmt.Println("auth middle execute!!")
-		return next(c)
 	}
 }

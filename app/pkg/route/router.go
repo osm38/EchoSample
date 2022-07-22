@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"echosample/pkg/handle"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
+	// "github.com/gorilla/sessions"
+	// "github.com/labstack/echo-contrib/session"
 	"echosample/pkg/authenticate"
 )
 
@@ -17,7 +17,7 @@ func NewRouter() *echo.Echo {
 	// panic（システム例外的なもの）が起こったときにサーバを落とさずにエラーレスポンスを返す。
 	e.Use(middleware.Recover())
 	// セッション管理
-	e.Use(session.Middleware(sessions.NewCookieStore([]byte("GoSampleSession"))))
+	// e.Use(session.Middleware(sessions.NewCookieStore([]byte("GoSampleSession"))))
 	// カスタム認証
 	e.Use(authenticate.SimpleAuthWithConfig(authenticate.SimpleAuthConfig{}))
 

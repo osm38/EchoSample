@@ -11,6 +11,7 @@ import (
 	"echosample/pkg/bind"
 	ub "echosample/pkg/util/bind"
 	"echosample/pkg/log"
+	"time"
 )
 
 var logger = log.GetInstance("handler")
@@ -35,7 +36,7 @@ func GetUser(c echo.Context) error {
 
 func DoLogin(c echo.Context) error {
 	l := &bind.Login{}
-	if err := ub.Bind(c, nil); err != nil {
+	if err := ub.Bind(c, l); err != nil {
 		logger.Error(err, "DoLogin is Fail!!", nil)
 		return err
 	}
@@ -49,8 +50,13 @@ func DoLogin(c echo.Context) error {
 	fmt.Println("login Success!!")
 
 	sess := session.GetSession(c)
-	sess.Save(c.Request(), c.Response())
-	return c.NoContent(http.StatusOK)
+	fmt.Println("GetSession Success!!")
+	cookie := &http.Cookie{}
+	cookie.Name = "sessID"
+	cookie.Value = sess.ID
+	cookie.Expires = time.Now().Add(86400 * 7)
+	c.SetCookie(cookie)
+	return c.String(http.StatusOK, "write a cookie")
 }
 
 func AjaxSample(c echo.Context) error {

@@ -9,8 +9,7 @@ type User struct {
 	Name string
 	Age int
 	Password string
-	LoginTimestamp time.Time
-	LogoutTimestamp time.Time
+	LastLogin time.Time
 	Deleted bool
 	CreateUser string
 	CreateTimestamp time.Time

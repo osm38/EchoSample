@@ -7,7 +7,7 @@ import (
 type Session struct {
 	ID string
 	UserID int
-	StartTime time.Time
+	MaxAge int
 	Deleted bool
 	CreateUser string
 	CreateTimestamp time.Time
